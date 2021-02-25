@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Campaign;
+use App\Http\Requests\CampaignCreateRequest;
 
 class CampaignController extends Controller
 {
@@ -15,7 +16,7 @@ class CampaignController extends Controller
      */
     public function index()
     {
-        $campaigns = Campaign::paginate(1);
+        $campaigns = Campaign::paginate(3);
         return view('admin.campaign.list', compact('campaigns')); 
     }
 
@@ -26,7 +27,7 @@ class CampaignController extends Controller
      */
     public function create()
     {
-        return "create çalıştı işte";
+        return view('admin.campaign.create');
     }
 
     /**
@@ -35,9 +36,10 @@ class CampaignController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CampaignCreateRequest $request)
     {
-        //
+        Campaign::create($request->post());
+        return redirect()->route('campaigns.index')->withSuccess('Kampanya başarıyla eklendi.');
     }
 
     /**
