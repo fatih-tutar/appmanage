@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Campaign;
 use App\Http\Requests\CampaignCreateRequest;
+use App\Http\Requests\CampaignUpdateRequest;
 
 class CampaignController extends Controller
 {
@@ -50,7 +51,7 @@ class CampaignController extends Controller
      */
     public function show($id)
     {
-        //
+        return $id;
     }
 
     /**
@@ -61,7 +62,8 @@ class CampaignController extends Controller
      */
     public function edit($id)
     {
-        //
+        $campaign = Campaign::find($id) ?? abort(404,'KAMPANYA BULUNAMADI.');
+        return view('admin.campaign.edit', compact('campaign'));
     }
 
     /**
@@ -71,9 +73,11 @@ class CampaignController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CampaignUpdateRequest $request, $id)
     {
-        //
+        $campaign = Campaign::find($id) ?? abort(404,'KAMPANYA BULUNAMADI.');
+        Campaign::find($id)->update($request->except(['_method','_token']));
+        return redirect()->route('campaigns.index')->withSuccess('Kampanya güncelleme işlemi başarıyla gerçekleşti.');
     }
 
     /**
@@ -84,6 +88,8 @@ class CampaignController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $campaign = Campaign::find($id) ?? abort(404,'KAMPANYA BULUNAMADI.');
+        $campaign->delete();
+        return redirect()->route('campaigns.index')->withSuccess('Kampanya silme işlemi başarıyla gerçekleşti.');
     }
 }

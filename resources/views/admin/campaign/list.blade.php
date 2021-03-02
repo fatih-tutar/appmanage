@@ -12,6 +12,7 @@
                         <tr>
                             <th scope="col">Kampanya</th>
                             <th scope="col">Durum</th>
+                            <th scope="col">Başlangıç Tarihi</th>
                             <th scope="col">Bitiş Tarihi</th>
                             <th scope="col">İşlemler</th>
                         </tr>
@@ -21,10 +22,11 @@
                         <tr>
                             <td>{{$campaign->title}}</td>
                             <td>{{$campaign->status}}</td>
+                            <td>{{$campaign->started_at}}</td>
                             <td>{{$campaign->finished_at}}</td>
                             <td>
-                                <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
-                                <a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                                <a href="{{route('campaigns.edit', $campaign->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-pen"></i></a>
+                                <a href="{{route('campaigns.destroy', $campaign->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                             </td>
                         </tr>
                         @endforeach

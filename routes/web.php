@@ -22,4 +22,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('campaigns/{id}',[CampaignController::class, 'destroy'])->whereNumber('id')->name('campaigns.destroy');
+
 Route::resource('campaigns',CampaignController::class);
