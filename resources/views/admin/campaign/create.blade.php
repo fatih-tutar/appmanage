@@ -2,7 +2,7 @@
     <x-slot name="header">Kampanya Oluştur</x-slot>
     <div class="card">
         <div class="card-body">
-            <form action="{{route('campaigns.store')}}" method="POST">
+            <form action="{{route('campaigns.store')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="">Kampanya Adı</label>
@@ -11,6 +11,10 @@
                 <div class="form-group">
                     <label for="">Kampanya Açıklaması</label>
                     <textarea name="description" id="" cols="30" rows="5" class="form-control" required>{{old('description')}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Fotoğraf</label>
+                    <input type="file" name="image" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="">Başlangıç Tarihi ve Saati</label>

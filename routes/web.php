@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CampaignController;
+use App\Http\Controllers\AbonelerController;
+use App\Http\Controllers\JsonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +27,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('campaigns/{id}',[CampaignController::class, 'destroy'])->whereNumber('id')->name('campaigns.destroy');
 
 Route::resource('campaigns',CampaignController::class);
+
+Route::resource('aboneler', AbonelerController::class);
+
+Route::resource('json', JsonController::class);

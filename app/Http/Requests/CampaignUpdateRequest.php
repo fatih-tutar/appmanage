@@ -26,6 +26,7 @@ class CampaignUpdateRequest extends FormRequest
         return [
             'title' => 'required|min:3|max:200',
             'description' => 'required',
+            'image' => 'image',
             'started_at' => 'after:'.now(),
             'finished_at' => 'after:'.now().'|after_or_equal:started_at', 
         ];
@@ -35,6 +36,7 @@ class CampaignUpdateRequest extends FormRequest
         return [
             'title' => 'Kampanya Adı',
             'description' => 'Kampanya Açıklaması',
+            'image' => 'Kampanya Fotoğrafı',
             'started_at' => 'Başlangıç',
             'finished_at' => 'Bitiş',
         ];

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Http\Requests\CampaignCreateRequest;
 use App\Http\Requests\CampaignUpdateRequest;
 use Illuminate\Support\Str;
 
-class CampaignController extends Controller
+class JsonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class CampaignController extends Controller
      */
     public function index()
     {
-        $campaigns = Campaign::paginate(3);
-        return view('admin.campaign.list', compact('campaigns')); 
+        $campaigns = Campaign::all();
+        return response()->json($campaigns);
     }
 
     /**
@@ -40,12 +40,12 @@ class CampaignController extends Controller
      */
     public function store(CampaignCreateRequest $request)
     {
-        if($request->hasFile('image')){
-            $fileName = Str::slug($request->title).'.'.$request->image->extension();
-            $fileNameWithUpload = 'uploads/'.$fileName;
+        if ($request->hasFile('image')) {
+            $fileName = Str::slug($request->title) . '.' . $request->image->extension();
+            $fileNameWithUpload = 'uploads/' . $fileName;
             $request->image->move(public_path('uploads'), $fileName);
             $request->merge([
-                'image'=>$fileNameWithUpload
+                'image' => $fileNameWithUpload
             ]);
         }
         Campaign::create($request->post());
@@ -71,7 +71,7 @@ class CampaignController extends Controller
      */
     public function edit($id)
     {
-        $campaign = Campaign::find($id) ?? abort(404,'KAMPANYA BULUNAMADI.');
+        $campaign = Campaign::find($id) ?? abort(404, 'KAMPANYA BULUNAMADI.');
         return view('admin.campaign.edit', compact('campaign'));
     }
 
@@ -105,7 +105,7 @@ class CampaignController extends Controller
      */
     public function destroy($id)
     {
-        $campaign = Campaign::find($id) ?? abort(404,'KAMPANYA BULUNAMADI.');
+        $campaign = Campaign::find($id) ?? abort(404, 'KAMPANYA BULUNAMADI.');
         $campaign->delete();
         return redirect()->route('campaigns.index')->withSuccess('Kampanya silme işlemi başarıyla gerçekleşti.');
     }
