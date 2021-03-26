@@ -10,6 +10,10 @@
                     <input type="text" name="title" class="form-control" required value="{{$campaign->title}}">
                 </div>
                 <div class="form-group">
+                    <label for="">Kampanya Kısa Açıklama</label>
+                    <input type="text" name="shortdescription" class="form-control" required value="{{$campaign->shortdescription}}">
+                </div> 
+                <div class="form-group">
                     <label for="">Kampanya Açıklaması</label>
                     <textarea name="description" id="" cols="30" rows="5" class="form-control" required>{{$campaign->description}}</textarea>
                 </div>       

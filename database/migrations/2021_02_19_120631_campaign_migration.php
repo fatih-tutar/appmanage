@@ -16,6 +16,7 @@ class CampaignMigration extends Migration
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->longText('shortdescription')->nullable();
             $table->longText('description')->nullable();
             $table->longText('image')->nullable();
             $table->timestamp('started_at')->nullable();

@@ -10,7 +10,7 @@ class Campaign extends Model
 {
     use HasFactory;
 
-    protected $fillable=['title','description','image','started_at','finished_at','status'];
+    protected $fillable=['title','shortdescription','description','image','started_at','finished_at','status'];
 
     protected $dates = ['finished_at','started_at'];
 
