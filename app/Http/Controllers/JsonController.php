@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Campaign;
 use App\Http\Requests\CampaignCreateRequest;
 use App\Http\Requests\CampaignUpdateRequest;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class JsonController extends Controller
@@ -18,8 +19,50 @@ class JsonController extends Controller
      */
     public function index()
     {
-        $campaigns = Campaign::all();
-        return response()->json($campaigns);
+        //FOREVER => SİLMEDİĞİMİZ SÜRECE KALMASINI İSTEDİĞİMİZ BİR KEY VARSA
+        // Cache::forever('test', 'deger');
+        //FORGET => İLGİLİ KEYİN CACHEİNİ SİLMEK İSTEDİĞİMİZDE
+        // Cache::forget('test');
+        //FLUSH => KOMPLE BÜTÜN CACHEİ SİLMEK İSTERSEK
+        // Cache::flush();
+        //PULL => KEY VARSA DEĞERİ ALIR SONRA KEYİ SİLER
+        // $test = Cache::pull('test');
+        
+        //HER YERDE Cache:: KULLANMAK YERİNE BU ŞEKİLDE DEĞİŞKENE ATAYABİLİRİZ. AYRICA BU ŞEKİLDE file database memcached redis şeklinde YÖNTEMLERİ BURADAN DEĞİŞTİREBİLİRİZ.
+        $cache = Cache::store('database');
+
+        // BURADAN BU PRİNT İŞLEMİ YORUMUNA KADAR Kİ ALAN STANDART FİLE YÖNTEMİ AYNI İŞLEMİN DATABASE İLE BERABER YAPILANIN GEÇECEĞİZ
+        if(Cache::has('tgappcampaigns')){
+            //dd('cache girdi');
+            return Cache::get('tgappcampaigns', function(){ //bu işlemde function tanımlamak zorunda değiliz sonuçta ifin içine varsa giriyor direk cache'i get yapabiliriz.
+                return Campaign::all(); 
+            });
+        }
+        //dd('25');
+        $tgcampaigns = Campaign::all();
+        Cache::put('tgappcampaigns', $tgcampaigns, now()->addMinutes(1));
+        return $tgcampaigns;
+
+        // BU PRİNT İŞLEMİ
+        // dd('22');
+
+        // BU TAG VAR MI YOK MU CACHE SORGULAMA KODU
+        // dd(Cache::has('tgappcampaigns')); 
+
+        // İKİNCİ KULLANIM REMEMBER İLE OLAN FUNCTİONDAKİ SORGU YOKSA TAGE ATAMA YAPIYOR
+        // return Cache::remember('tgappcampaigns', '120', function(){
+        //     return Campaign::all();
+        // });  
+
+        // BU CACHE'İN İLK KULLANIMI
+        // return Cache::get('tgappcampaigns', function(){
+        //     return Campaign::all();
+        // });   
+        
+        // BU BENİM CACHE KULLANMADAN JSONI YAZDIRMA ŞEKLİM
+        // $campaigns = Campaign::all();
+        // return response()->json($campaigns);
+           
     }
 
     /**
