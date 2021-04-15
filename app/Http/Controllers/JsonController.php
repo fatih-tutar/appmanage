@@ -27,18 +27,16 @@ class JsonController extends Controller
         // Cache::flush();
         //PULL => KEY VARSA DEĞERİ ALIR SONRA KEYİ SİLER
         // $test = Cache::pull('test');
-        
+
         //HER YERDE Cache:: KULLANMAK YERİNE BU ŞEKİLDE DEĞİŞKENE ATAYABİLİRİZ. AYRICA BU ŞEKİLDE file database memcached redis şeklinde YÖNTEMLERİ BURADAN DEĞİŞTİREBİLİRİZ.
-        $cache = Cache::store('database');
+        //$cache = Cache::store('database');
 
         // BURADAN BU PRİNT İŞLEMİ YORUMUNA KADAR Kİ ALAN STANDART FİLE YÖNTEMİ AYNI İŞLEMİN DATABASE İLE BERABER YAPILANIN GEÇECEĞİZ
         if(Cache::has('tgappcampaigns')){
-            //dd('cache girdi');
             return Cache::get('tgappcampaigns', function(){ //bu işlemde function tanımlamak zorunda değiliz sonuçta ifin içine varsa giriyor direk cache'i get yapabiliriz.
                 return Campaign::all(); 
             });
         }
-        //dd('25');
         $tgcampaigns = Campaign::all();
         Cache::put('tgappcampaigns', $tgcampaigns, now()->addMinutes(1));
         return $tgcampaigns;

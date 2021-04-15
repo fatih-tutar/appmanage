@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\CampaignController;
-use App\Http\Controllers\AbonelerController;
 use App\Http\Controllers\JsonController;
+use App\Http\Controllers\Admin\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +28,8 @@ Route::get('campaigns/{id}',[CampaignController::class, 'destroy'])->whereNumber
 
 Route::resource('campaigns',CampaignController::class);
 
-Route::resource('aboneler', AbonelerController::class);
+Route::get('subscribers/{id}', [SubscriberController::class, 'destroy'])->whereNumber('id')->name('subscribers.destroy');
+
+Route::resource('subscribers', SubscriberController::class);
 
 Route::resource('json', JsonController::class);

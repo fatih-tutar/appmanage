@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
-class Abone extends Model
+class Subscriber extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'phone_number',];
+    protected $fillable = ['ad', 'telefon'];
 }

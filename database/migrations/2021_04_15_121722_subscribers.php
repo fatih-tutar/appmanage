@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AboneMigration extends Migration
+class Subscribers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class AboneMigration extends Migration
      */
     public function up()
     {
-        Schema::create('aboneler', function (Blueprint $table) {
+        Schema::create('subscribers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone_number');
+            $table->string('ad');
+            $table->string('telefon');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class AboneMigration extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('aboneler');
+        Schema::dropIfExists('subscribers');
     }
 }

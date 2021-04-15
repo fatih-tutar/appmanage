@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Abone;
-use App\Http\Requests\AboneCreateRequest;
-use App\Http\Requests\AboneUpdateRequest;
+use App\Models\Subscriber;
+use App\Http\Requests\SubscriberCreateRequest;
+use App\Http\Requests\SubscriberUpdateRequest;
 use Illuminate\Support\Str;
 
-class AbonelerController extends Controller
+class SubscriberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class AbonelerController extends Controller
      */
     public function index()
     {
-        $aboneler = Abone::paginate(3);
-        return view('admin.abone.list', compact('aboneler'));
+        $subscribers = Subscriber::paginate(3);
+        return view('admin.subscriber.list', compact('subscribers'));
     }
 
     /**
@@ -29,7 +29,7 @@ class AbonelerController extends Controller
      */
     public function create()
     {
-        return view('admin.abone.create');
+        return view('admin.subscriber.create');
     }
 
     /**
@@ -38,10 +38,10 @@ class AbonelerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AboneCreateRequest $request)
+    public function store(SubscriberCreateRequest $request)
     {
-        Abone::create($request->post());
-        return redirect()->route('aboneler.index')->withSuccess('Kampanya başarıyla eklendi.');
+        Subscriber::create($request->post());
+        return redirect()->route('subscribers.index')->withSuccess('Abone başarıyla eklendi.');
     }
 
     /**
@@ -63,8 +63,8 @@ class AbonelerController extends Controller
      */
     public function edit($id)
     {
-        $abone = Abone::find($id) ?? abort(404, 'KAMPANYA BULUNAMADI.');
-        return view('admin.abone.edit', compact('abone'));
+        $subscriber = Subscriber::find($id) ?? abort(404, 'ABONE BULUNAMADI.');
+        return view('admin.subscriber.edit', compact('subscriber'));
     }
 
     /**
@@ -74,10 +74,10 @@ class AbonelerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AboneUpdateRequest $request, $id)
+    public function update(SubscriberUpdateRequest $request, $id)
     {
-        Abone::find($id)->update($request->post());
-        return redirect()->route('aboneler.index')->withSuccess('Abone güncelleme işlemi başarıyla gerçekleşti.');
+        Subscriber::find($id)->update($request->post());
+        return redirect()->route('subscribers.index')->withSuccess('Abone güncelleme işlemi başarıyla gerçekleşti.');
     }
 
     /**
@@ -88,8 +88,8 @@ class AbonelerController extends Controller
      */
     public function destroy($id)
     {
-        $abone = AboneCreateRequest::find($id) ?? abort(404, 'KAMPANYA BULUNAMADI.');
-        $abone->delete();
-        return redirect()->route('aboneler.index')->withSuccess('Abone silme işlemi başarıyla gerçekleşti.');
+        $subscriber = Subscriber::find($id) ?? abort(404, 'ABONE BULUNAMADI.');
+        $subscriber->delete();
+        return redirect()->route('subscribers.index')->withSuccess('Abone silme işlemi başarıyla gerçekleşti.');
     }
 }

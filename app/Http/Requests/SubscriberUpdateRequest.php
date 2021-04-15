@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AboneUpdateRequest extends FormRequest
+class SubscriberUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class AboneUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class AboneUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'ad' => 'required|min:3|max:200',
+            'telefon' => 'required',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'ad' => 'Abone Adı',
+            'telefon' => 'Telefon',
         ];
     }
 }

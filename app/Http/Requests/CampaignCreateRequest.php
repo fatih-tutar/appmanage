@@ -26,8 +26,7 @@ class CampaignCreateRequest extends FormRequest
         return [
             'title' => 'required|min:3|max:200',
             'description' => 'required',
-            'image' => 'image',
-            //'image' => 'image|nullable|max:1024|mimes:jpg,jpeg,png',
+            'image' => 'image|nullable|max:1024|mimes:jpg,jpeg,png',
             'started_at' => 'after:'.now(),
             'finished_at' => 'after:'.now(),
         ];

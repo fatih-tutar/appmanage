@@ -7,7 +7,7 @@
                 <div class="form-group">
                     <label for="">Kampanya Adı</label>
                     <input type="text" name="title" class="form-control" required value="{{old('title')}}">
-                </div>
+                </div>                
                 <div class="form-group">
                     <label for="">Kampanya Açıklaması</label>
                     <textarea name="description" id="" cols="30" rows="5" class="form-control" required>{{old('description')}}</textarea>

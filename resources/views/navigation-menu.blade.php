@@ -96,7 +96,7 @@
                                 {{ __('Manage Account') }}
                             </div>
 
-                            <x-jet-dropdown-link href="{{ route('aboneler.index') }}">
+                            <x-jet-dropdown-link href="{{ route('subscribers.index') }}">
                                 Aboneler
                             </x-jet-dropdown-link>
 
