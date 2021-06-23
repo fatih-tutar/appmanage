@@ -33,3 +33,5 @@ Route::get('subscribers/{id}', [SubscriberController::class, 'destroy'])->whereN
 Route::resource('subscribers', SubscriberController::class);
 
 Route::resource('json', JsonController::class);
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
